@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+
 
 function clg(...x) {
 	for (let exes of x) console.log(exes);
@@ -47,10 +49,11 @@ const ColorList = ({ colors, updateColors }) => {
 
 	const saveEdit = e => {
 		e.preventDefault();
-		clg("savedit", colorToEdit)
 		// Make a put request to save your updated color
 		// think about where will you get the id from...
 		// where is is saved right now?
+
+		clg("savedit", colorToEdit)
 		const authAxios = axiosWithAuth();
 		authAxios
 			.put(`${url}/colors/${colorToEdit.id}`, colorToEdit)
@@ -63,6 +66,15 @@ const ColorList = ({ colors, updateColors }) => {
 
 	const deleteColor = color => {
 		// make a delete request to delete this color
+		clg("DELETE", color)
+		const authAxios = axiosWithAuth();
+		authAxios
+			.delete(`${url}/colors/${color.id}`, color)
+			.then(res => {
+				clg("74", res);
+				// setColorList(res.data);
+			}) 
+			.catch(err => clg(`Problem: ${err}`))
 	};
 
 
