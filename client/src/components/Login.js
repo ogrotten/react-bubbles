@@ -8,7 +8,7 @@ function clg(...x) {
 }
 
 
-const Login = () => {
+const Login = (props) => {
 	const [cred, setCred] = useState({ username: "", password: "" });
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -27,7 +27,7 @@ const Login = () => {
 				clg(res.data)
 				sessionStorage.setItem("token", res.data.payload)
 				setIsLoggedIn(true);
-				// props.history.push("/friendlist");
+				props.history.push("/bubbs");
 			})
 			.catch(err => clg(err))
 	}
