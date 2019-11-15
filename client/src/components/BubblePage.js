@@ -4,6 +4,11 @@ import axios from "axios";
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
 
+function clg(...x) {
+	for (let exes of x) console.log(exes);
+}
+
+
 const BubblePage = () => {
   const [colorList, setColorList] = useState([]);
   // fetch your colors data from the server when the component mounts

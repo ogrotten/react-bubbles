@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+function clg(...x) {
+	for (let exes of x) console.log(exes);
+}
+
+
 const initialColor = {
   color: "",
   code: { hex: "" }

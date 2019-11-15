@@ -4,6 +4,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/Login";
 import "./styles.scss";
 
+function clg(...x) {
+	for (let exes of x) console.log(exes);
+}
+
+
 function App() {
   return (
     <Router>
