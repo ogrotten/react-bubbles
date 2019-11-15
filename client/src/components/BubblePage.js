@@ -26,17 +26,20 @@ const BubblePage = () => {
 	const getData = () => {
 		// get full friendlist
 		const authAxios = axiosWithAuth();
-
 		authAxios
-			.get(`${URL}/friends`)
+			.get(`${url}/colors`)
 			.then(res => {
 				// console.log(res.data);
 				clg("34", res.data);
 				setColorList(res.data);
 				// setFriendsAll(res.data);
 			})
+			.catch(err => clg(`Problem: ${err}`))
 	}
 
+	useEffect(() => {
+		getData();
+	},[])
 
 	return (
 		<>
