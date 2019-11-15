@@ -30,7 +30,7 @@ const BubblePage = () => {
 			.get(`${url}/colors`)
 			.then(res => {
 				// console.log(res.data);
-				clg("34", res.data);
+				// clg("34", res.data);
 				setColorList(res.data);
 				// setFriendsAll(res.data);
 			})
