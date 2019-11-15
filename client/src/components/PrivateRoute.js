@@ -1,10 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-function clg(...x) {
-	for (let exes of x) console.log(exes);
-}
-
 const isAuthent = () => {
 	return sessionStorage.getItem("token") ? true : false;
 }

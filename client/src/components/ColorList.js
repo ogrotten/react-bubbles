@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
@@ -47,36 +47,65 @@ const ColorList = ({ colors, updateColors }) => {
 		setColorToEdit(color);
 	};
 
+	const newList = []
+
 	const saveEdit = e => {
 		e.preventDefault();
 		// Make a put request to save your updated color
 		// think about where will you get the id from...
 		// where is is saved right now?
 
-		clg("savedit", colorToEdit)
+		// clg("savedit", colorToEdit)
 		const authAxios = axiosWithAuth();
 		authAxios
 			.put(`${url}/colors/${colorToEdit.id}`, colorToEdit)
 			.then(res => {
-				clg("58", res.data);
+				// clg("58", res.data);
+				clg("58", colors);
+				// clg(colors)
+				const changed = res.data;
+				updateColors(colors.map(col => {
+					if (col.id === changed.id) {
+						// colors. changed
+						col.color = changed.color;
+						col.code.hex = changed.code.hex;
+						return col;
+					}
+					else { return col };
+				}))
+				// clg("73",colors)
+
+				// updateColors(...colors);
 				// setColorList(res.data);
 			})
-			.catch(err => clg(`Problem: ${err}`))
+			.catch(err => clg(`Edit Problem: ${err}`))
 	};
 
 	const deleteColor = color => {
 		// make a delete request to delete this color
-		clg("DELETE", color)
+		// clg("DELETE", color)
 		const authAxios = axiosWithAuth();
 		authAxios
 			.delete(`${url}/colors/${color.id}`, color)
 			.then(res => {
-				clg("74", res);
-				// setColorList(res.data);
-			}) 
-			.catch(err => clg(`Problem: ${err}`))
+				// // const remv = colors.findIndex(col => col.id === color.id)
+				// // colors.splice(remv, 1)
+				// updateColors(colors.splice(colors.findIndex(col => col.id === color.id), 1));
+				// // clg("94", remv, colors);
+				updateColors(colors.filter(col => 
+					col.id != color.id
+				))
+
+				clg("94", colors);
+			})
+			.catch(err => clg(`Delete Problem: ${err}`))
 	};
 
+	// useEffect(() => {
+	// 	updateColors(getData());
+	// }, [])
+
+	// clg("98",colors);
 
 	return (
 		<div className="colors-wrap">

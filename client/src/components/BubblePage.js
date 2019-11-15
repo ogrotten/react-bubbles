@@ -29,7 +29,7 @@ const BubblePage = () => {
 		authAxios
 			.get(`${url}/colors`)
 			.then(res => {
-				// clg("32", res.data);
+				clg("32", res.data);
 				setColorList(res.data);
 			})
 			.catch(err => clg(`Problem: ${err}`))
@@ -41,7 +41,7 @@ const BubblePage = () => {
 
 	return (
 		<>
-			<ColorList colors={colorList} updateColors={setColorList} />
+			<ColorList colors={colorList} updateColors={setColorList} getData={getData}/>
 			<Bubbles colors={colorList} />
 		</>
 	);
