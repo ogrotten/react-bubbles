@@ -29,10 +29,8 @@ const BubblePage = () => {
 		authAxios
 			.get(`${url}/colors`)
 			.then(res => {
-				// console.log(res.data);
-				// clg("34", res.data);
+				// clg("32", res.data);
 				setColorList(res.data);
-				// setFriendsAll(res.data);
 			})
 			.catch(err => clg(`Problem: ${err}`))
 	}

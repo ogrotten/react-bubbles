@@ -47,29 +47,24 @@ const ColorList = ({ colors, updateColors }) => {
 
 	const saveEdit = e => {
 		e.preventDefault();
-		clg("savedit",colorToEdit)
+		clg("savedit", colorToEdit)
 		// Make a put request to save your updated color
 		// think about where will you get the id from...
 		// where is is saved right now?
+		const authAxios = axiosWithAuth();
+		authAxios
+			.put(`${url}/colors/${colorToEdit.id}`, colorToEdit)
+			.then(res => {
+				clg("58", res.data);
+				// setColorList(res.data);
+			})
+			.catch(err => clg(`Problem: ${err}`))
 	};
 
 	const deleteColor = color => {
 		// make a delete request to delete this color
 	};
 
-	const transact = () => {
-		// get full friendlist
-		const authAxios = axiosWithAuth();
-		authAxios
-			.get(`${url}/colors`)
-			.then(res => {
-				// console.log(res.data);
-				// clg("34", res.data);
-				// setColorList(res.data);
-				// setFriendsAll(res.data);
-			})
-			.catch(err => clg(`Problem: ${err}`))
-	}
 
 	return (
 		<div className="colors-wrap">
@@ -82,9 +77,7 @@ const ColorList = ({ colors, updateColors }) => {
 								e.stopPropagation();
 								deleteColor(color)
 							}
-							}>
-								x
-              </span>{" "}
+							}>x</span>{" "}
 							{color.color}
 						</span>
 						<div
