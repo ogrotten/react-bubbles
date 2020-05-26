@@ -4,17 +4,47 @@ import axios from "axios";
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
 
-const BubblePage = () => {
-  const [colorList, setColorList] = useState([]);
-  // fetch your colors data from the server when the component mounts
-  // set that data to the colorList state property
+function clg(...x) {
+	for (let exes of x) console.log(exes);
+}
 
-  return (
-    <>
-      <ColorList colors={colorList} updateColors={setColorList} />
-      <Bubbles colors={colorList} />
-    </>
-  );
+const url = "http://localhost:5000/api"
+
+const axiosWithAuth = () => {
+	return axios.create({
+		headers: {
+			authorization: sessionStorage.getItem("token")
+		}
+	})
+}
+
+const BubblePage = () => {
+	const [colorList, setColorList] = useState([]);
+	// fetch your colors data from the server when the component mounts
+	// set that data to the colorList state property
+
+	const getData = () => {
+		// get full friendlist
+		const authAxios = axiosWithAuth();
+		authAxios
+			.get(`${url}/colors`)
+			.then(res => {
+				clg("32", res.data);
+				setColorList(res.data);
+			})
+			.catch(err => clg(`Problem: ${err}`))
+	}
+
+	useEffect(() => {
+		getData();
+	},[])
+
+	return (
+		<>
+			<ColorList colors={colorList} updateColors={setColorList} getData={getData}/>
+			<Bubbles colors={colorList} />
+		</>
+	);
 };
 
 export default BubblePage;
